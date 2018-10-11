@@ -1,0 +1,18 @@
+monthlyPayment() {
+    const monthlyInterestRate = (this.interest / 100) / this.period;
+    // monthlyInterestRate = (3.75/100/12)
+    // monthlyInterestRate = 0.003125
+    const numberOfPayments = this.term * this.period;
+    // numberOfPayments = (30*12)
+    // numberOfPayments = 360
+    const compoundedInterestRate = Math.pow((1 + monthlyInterestRate), numberOfPayments);
+    // compoundedInterestRate = ( (1+(3.75/100/12))^(30*12) )
+    // compoundedInterestRate = 1.003125^360
+    // compoundedInterestRate = 3.07481839521
+    const interestQuotient = (monthlyInterestRate * compoundedInterestRate) / ((Math.pow((1 + monthlyInterestRate), numberOfPayments)) - 1);
+    // interestQuotient = ( (3.75/100/12)*( (1+(3.75/100/12))^(30*12) ) ) / ( ( 1+(3.75/100/12) )^(30*12) -1)
+    // interestQuotient = (0.003125+3.07481839521)
+    const monthlyPayment = this.principal * interestQuotient;
+    // monthlyPayment = 100000 * ( (3.75/100/12)*( (1+(3.75/100/12))^(30*12) ) ) / ( ( 1+(3.75/100/12) )^(30*12) -1)
+    return monthlyPayment;
+  }
